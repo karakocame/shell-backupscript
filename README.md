@@ -1,64 +1,87 @@
+#!/bin/bash
+
+# Hauptmenu ausgeben
 function menu(){
 	clear
 	echo "|----------------------------------------------|"
 	echo "| Haupmenu:                                    |"
 	echo "|                                              |"
-	echo "|      Backup erstellen       B                |"
-	echo "|      Inhalt eines Backups   L                |"
-	echo "|      Backup zurück spielen  R                |"
-	echo "|      Backup löschen         D                |"
-	echo "|      Programm beenden       X                |"
+	echo "|      Backup erstellen:      B                |"
+	echo "|      Inhalt eines Backups:  L                |"
+	echo "|      Backup zurÃ¼ck spielen: R                |"
+	echo "|      Backup lÃ¶schen:        D                |"
+	echo "|      Programm beenden:      X                |"
 	echo "|                                              |"
 	read -p "| Eingabe: " EINGABE
 }
 
-
+# Eingeben der Kompressionsmethode
 function compress(){
 	clear
 	echo "|----------------------------------------------|"
 	echo "| Kompressionsmethode:                         |"
 	echo "|                                              |"
-	echo "|      ZIP                    z                |"
-	echo "|      BZIP2                  j                |"
-	echo "|      XZ                     J                |"
+	echo "|      ZIP:                   z                |"
+	echo "|      BZIP2:                 j                |"
+	echo "|      XZ:                    J                |"
 	echo "|                                              |"
-	read -p "| Eingabe:" COMPRESS
+	read -p "| Eingabe: " COMPRESS
 }
 
-function wheretwoBackup(){
+# Eingeben des Backuppfades
+function where2Backup(){
 	clear
 	echo "|----------------------------------------------|"
-	echo "| Wo soll das Backup gespeichert werden        |"
+	echo "| Wohin soll das Backup gespeichert werden:    |"
 	echo "|                                              |"
-	read -p "| Eingabe" WHERETWOBACKUP
+	read -p "| Eingabe: " WHERE2BACKUP 
 }
 
-function whattwoBackup(){
+# Eingeben des Pfades, der gesichert werden soll
+function what2Backup(){
 	clear
 	echo "|----------------------------------------------|"
-	echo "| Wohin soll das Backup gespeichert werden     |"
+	echo "| Wohin soll das Backup gespeichert werden:    |"
 	echo "|                                              |"
-	read -p "| Eingabe: " WHATTWOBACKUP
+	read -p "| Eingabe: " WHAT2BACKUP 
 }
+
 
 function backup(){
+	BACKUPFILE=$(date +%Y%m%d-%H%M%S)-backup.tgz
 	YESNO=0
 	until [ $YESNO = 1 ]
 	do
 		compress
-		echo "|Sind Sie sicher das Sie die Option ${COMPRESS}         |"
-		echo "|benutzen wollen ?                            |"
+		echo "| Sind Sie sicher das Sie die Option ${COMPRESS}         |" 
+		echo "| benutzen mÃ¶chten?                            |"
 		read -p "| (0: nein | 1: ja) " YESNO
 	done
-	wheretwoBackup
-	whattwoBackup
-	echo "tar cfz $WHERETWOBACKUP $WHATTWOBACKUP"
-	sleep 5
+	# 
+	YESNO=0
+	until [ $YESNO = 1 ]
+	do
+		where2Backup
+		echo "| Sind Sie sicher das Sie hier in speichern mÃ¶chten: ${WHERE2BACKUP}         |" 
+		echo "| benutzen mÃ¶chten?                            |"
+		read -p "| (0: nein | 1: ja) " YESNO
+	done
+	#
+	YESNO=0
+	until [ $YESNO = 1 ]
+	do
+		what2Backup	
+		echo "| Sind Sie sicher das Sie dieses Verzeichnis sichern wollen? ${WHAT2BACKUP}         |" 
+		echo "| benutzen mÃ¶chten?                            |"
+		read -p "| (0: nein | 1: ja) " YESNO
+	done
+		
+	tar cf${COMPRESS} ${WHERE2BACKUP}/$BACKUPFILE ${WHAT2BACKUP}
+	sleep 2
 }
 
 function unbackup(){
-	
-echo "UNBACKUP"
+	echo "UNBACKUP"
 }
 
 function listbackup(){
@@ -69,6 +92,7 @@ function deletebackup(){
 	echo "DELETEBACKUP"
 }
 
+# Hauptereignisschleife
 while :
 do
 	menu
@@ -86,7 +110,7 @@ do
 			deletebackup
 			;;
 		*)
-			echo "Auf Wiedersehen"
+			echo "Und TschÃ¼ss"
 			exit 1
 	esac
 	sleep 2
