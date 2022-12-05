@@ -1,24 +1,7 @@
 
 
-<html lang="de"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protokolle</title>
-        </head><body>
-            <h1> Protokolle</h1>
-                <a href="index.html">zurück zum bosshaften</a>
-        <div class="show-group" trigger-element=".trigger" target-element=".target">
-            <button class="trigger">
-                Hide
-            </button>
-            <div class="target">
-                <p>
+Shell-bankuscript
 
-                </p>
-            </div>
-        </div>
-    <table border="1">
-       
         
         <tbody><tr>
             <td>DNS </td>
