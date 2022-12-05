@@ -24,6 +24,7 @@ function compress(){
 	echo "|                                              |"
 	read -p "| Eingabe:" COMPRESS
 }
+
 function wheretwoBackup(){
 	clear
 	echo "|----------------------------------------------|"
@@ -31,6 +32,7 @@ function wheretwoBackup(){
 	echo "|                                              |"
 	read -p "| Eingabe" WHERETWOBACKUP
 }
+
 function whattwoBackup(){
 	clear
 	echo "|----------------------------------------------|"
@@ -38,6 +40,7 @@ function whattwoBackup(){
 	echo "|                                              |"
 	read -p "| Eingabe: " WHATTWOBACKUP
 }
+
 function backup(){
 	YESNO=0
 	until [ $YESNO = 1 ]
@@ -52,15 +55,20 @@ function backup(){
 	echo "tar cfz $WHERETWOBACKUP $WHATTWOBACKUP"
 	sleep 5
 }
+
 function unbackup(){
-	echo "UNBACKUP"
+	
+echo "UNBACKUP"
 }
+
 function listbackup(){
 	echo "LISTBACKUP"
 }
+
 function deletebackup(){
 	echo "DELETEBACKUP"
 }
+
 while :
 do
 	menu
