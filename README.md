@@ -1,57 +1,95 @@
+function menu(){
+	clear
+	echo "|----------------------------------------------|"
+	echo "| Haupmenu:                                    |"
+	echo "|                                              |"
+	echo "|      Backup erstellen       B                |"
+	echo "|      Inhalt eines Backups   L                |"
+	echo "|      Backup zurück spielen  R                |"
+	echo "|      Backup löschen         D                |"
+	echo "|      Programm beenden       X                |"
+	echo "|                                              |"
+	read -p "| Eingabe: " EINGABE
+}
 
 
-Shell-bankuscript
+function compress(){
+	clear
+	echo "|----------------------------------------------|"
+	echo "| Kompressionsmethode:                         |"
+	echo "|                                              |"
+	echo "|      ZIP                    z                |"
+	echo "|      BZIP2                  j                |"
+	echo "|      XZ                     J                |"
+	echo "|                                              |"
+	read -p "| Eingabe:" COMPRESS
+}
 
-        
-        <tbody><tr>
-            <td>DNS </td>
-            <td>Domain Name Server </td>
-            <td>Wandelt eine Domain in eine dazugehörige IP um.</td>
-        </tr><tr>
-            <td>DHCP</td>
-            <td>Dynamic Host Configuration Protocol</td>
-            <td>Ist da um Geräten eine IP-Adresse zuzuweisen.</td>
-        </tr><tr>
-            <td>SMTP</td>
-            <td>Simple Mail Transfer Protocol</td>
-            <td>Es ist ein mail Übertragungs-Protokoll.</td>
-        </tr><tr>
-            <td>IMAP</td>
-            <td>Internet Message Access Protocol</td>
-            <td>Stellt ein Netzwerkdatei System für ein digitales Postfach her.</td>
-        </tr><tr>
-            <td>HTTP</td>
-            <td>Hypertext Transfer Protokoll</td>
-            <td>Ein Protokoll zum Übertragen von Hypertext-Dokumenten.</td>
-        </tr><tr>
-            <td>HTTPS</td>
-            <td>Hypertext Transfer Protocol Secure</td>
-            <td>Ein sicheres Protokoll zum Übertragen von Hypertext-Dokumenten.</td>
-        </tr><tr>
-            <td>TCP</td>
-            <td>Transmission Control Protocol</td>
-            <td>Das Transmission Control Protocol, kurz TCP, ist Teil der Protokollfamilie TCP/IP. TCP ist ein verbindungsorientiertes Protokoll und soll maßgeblich Datenverluste verhindern, Dateien und Datenströme aufteilen und Datenpakete den Anwendungen zuordnen können.</td>
-        </tr><tr>
-            <td>UDP</td>
-            <td>User Datagram Protocol</td>
-            <td>Das User Datagram Protocol (UDP) ist ein Protokoll aus der TCP/IP-Welt. Es baut auf dem Internet Protokoll auf und ist im OSI-Schichtenmodell auf Schicht 4, der Transportschicht, angesiedelt.</td>
-        </tr><tr>
-            <td>IPv4</td>
-            <td>Internet Protocol Version 4</td>
-            <td>IPv4 vor der Entwicklung von IPv6 auch einfach IP, ist die vierte Version des Internet Protocols (IP). Es war die erste Version des Internet Protocols, welche weltweit verbreitet und eingesetzt wurde, und bildet eine wichtige technische Grundlage des Internets.</td>
-        </tr><tr>
-            <td>IPv6</td>
-            <td>Internet Protocol Version 6</td>
-            <td>Das Internet Protocol Version 6 (IPv6), früher auch Internet Protocol next Generation (IPng) genannt, ist ein von der Internet Engineering Task Force (IETF) seit 1998 standardisiertes Verfahren zur Übertragung von Daten in paketvermittelnden Rechnernetzen, insbesondere dem Internet.</td>
-        </tr><tr>
-            <td>Ethernet</td>
-            <td>Internet Provider</td>
-            <td>Das Ethernet ist eine Technik, die Software (Protokolle usw.) und Hardware (Kabel, Verteiler, Netzwerkkarten usw.) für kabelgebundene Datennetze spezifiziert, welche ursprünglich für lokale Datennetze (LANs) gedacht war und daher auch als LAN-Technik bezeichnet wird.</td>
+function wheretwoBackup(){
+	clear
+	echo "|----------------------------------------------|"
+	echo "| Wo soll das Backup gespeichert werden        |"
+	echo "|                                              |"
+	read -p "| Eingabe" WHERETWOBACKUP
+}
 
-        </tr><tr>
-            <td>ARP</td>
-            <td>Address Resolution Protocol</td>
-            <td>Das Address Resolution Protocol (ARP) ist ein Netzwerkprotokoll, das zu einer Netzwerkadresse der Internetschicht die physische Adresse (Hardware-Adresse) der Netzzugangsschicht ermittelt und diese Zuordnung gegebenenfalls in den ARP-Tabellen der beteiligten Rechner hinterlegt.</td>
-        </tr>
+function whattwoBackup(){
+	clear
+	echo "|----------------------------------------------|"
+	echo "| Wohin soll das Backup gespeichert werden     |"
+	echo "|                                              |"
+	read -p "| Eingabe: " WHATTWOBACKUP
+}
 
-</tbody></table></body></html>
+
+function backup(){
+	YESNO=0
+	until [ $YESNO = 1 ]
+	do
+		compress
+		echo "|Sind Sie sicher das Sie die Option ${COMPRESS}         |"
+		echo "|benutzen wollen ?                            |"
+		read -p "| (0: nein | 1: ja) " YESNO
+	done
+	wheretwoBackup
+	whattwoBackup
+	echo "tar cfz $WHERETWOBACKUP $WHATTWOBACKUP"
+	sleep 5
+}
+
+function unbackup(){
+	echo "UNBACKUP"
+}
+
+function listbackup(){
+	echo "LISTBACKUP"
+}
+
+function deletebackup(){
+	echo "DELETEBACKUP"
+}
+
+while :
+do
+	menu
+	case $EINGABE in
+		b|B)
+			backup
+			;;
+		r|R)
+			unbackup
+			;;
+		l|L)
+			listbackup
+			;;
+		d|D)
+			deletebackup
+			;;
+		*)
+			echo "Auf Wiedersehen"
+			exit 1
+	esac
+	sleep 2
+done
+
+exit 0
