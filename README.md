@@ -1,9 +1,4 @@
-#!/bin/bash
 
-# Backupscript: Erstellen und ZurÃ¼ckspielen von Verzeichnissen
-# Author : Martin RÃ¶sner
-# E-Mail : roesner@elektronikschule.de
-# Version: v01
 
 # Hauptmenu ausgeben
 function menu(){
